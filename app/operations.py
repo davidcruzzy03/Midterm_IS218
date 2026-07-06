@@ -26,8 +26,89 @@ class Multiplication(Operation):
         return a * b
     
 class Division(Operation):
-    def execute(self, a: Decimal, b: Decimal) -> Decimal:
-        self.validate(a, b)
+    def validate(self, a: Decimal, b: Decimal) -> None:
+        super().validate(a, b)
         if b == 0:
             raise ValidationError("Division by zero is not allowed.")
+    def execute(self, a: Decimal, b: Decimal) -> Decimal:
+        self.validate(a, b)
         return a / b
+    
+class Power(Operation):
+    def validate(self, a: Decimal, b: Decimal) -> None:
+        super().validate(a, b)
+        if b < 0:
+            raise ValidationError("Zero cannot be raised to a negative power.")
+    def execute(self, a: Decimal, b: Decimal) -> Decimal:
+        self.validate(a, b)
+        return Decimal(pow(float(a), float(b)))
+    
+class Root(Operation):
+    def validate(self, a: Decimal, b: Decimal) -> None:
+        super().validate(a, b)
+        if a < 0:
+            raise ValidationError("Cannot calculate the root of a negative number.")    
+        if b == 0:
+            raise ValidationError("Root degree cannot be zero.")
+    def execute(self, a: Decimal, b: Decimal) -> Decimal:
+        self.validate(a, b)
+        return Decimal(pow(float(a), float(1) / float(b)))
+    
+class Modulus(Operation):
+    def validate(self, a: Decimal, b: Decimal) -> None:
+        super().validate(a, b)
+        if b == 0:
+            raise ValidationError("Modulus by zero is not allowed.")
+    def execute(self, a: Decimal, b: Decimal) -> Decimal:
+        self.validate(a, b)
+        return a % b
+    
+class IntegerDivision(Operation):
+    def validate(self, a: Decimal, b: Decimal) -> None:
+        super().validate(a, b)
+        if b == 0:
+            raise ValidationError("Integer division by zero is not allowed.")
+    def execute(self, a: Decimal, b: Decimal) -> Decimal:
+        self.validate(a, b)
+        return a // b
+    
+class Percentage(Operation):
+    def validate(self, a: Decimal, b: Decimal) -> None:
+        super().validate(a, b)
+        if b == 0:
+            raise ValidationError("Percentage by zero is not allowed.")
+    def execute(self, a: Decimal, b: Decimal) -> Decimal:
+        self.validate(a, b)
+        return (a * b) / Decimal("100")
+    
+class Absolute(Operation):
+    def execute(self, a: Decimal, b: Decimal) -> Decimal:
+        self.validate(a, b)
+        return abs(a-b)
+
+class OperationFactory:
+    operations: Dict[str, Operation] = {
+        "add": Addition(),
+        "subtract": Subtraction(),
+        "multiply": Multiplication(),
+        "divide": Division(),
+        "power": Power(),
+        "root": Root(),
+        "modulus": Modulus(),
+        "integer_division": IntegerDivision(),
+        "percentage": Percentage(),
+        "absolute": Absolute()
+    }
+
+    @classmethod
+    def register_operation(cls, operation_name: str, operation: Operation) -> None:
+        if not issubclass(type(operation), Operation):
+            raise TypeError("Operation must be a subclass of Operation.")
+        cls.operations[operation_name.lower()] = operation
+        
+    @classmethod
+    def get_operation(cls, operation_name: str) -> Operation:
+        operation = cls.operations.get(operation_name.lower())
+        if not operation:
+            raise ValueError(f"Operation '{operation_name}' is not supported.")
+        return operation()
