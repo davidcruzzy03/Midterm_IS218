@@ -76,10 +76,10 @@ class Percentage(Operation):
     def validate(self, a: Decimal, b: Decimal) -> None:
         super().validate(a, b)
         if b == 0:
-            raise ValidationError("Percentage by zero is not allowed.")
+            raise ValidationError("Percentage denominator cannot be zero.")
     def execute(self, a: Decimal, b: Decimal) -> Decimal:
         self.validate(a, b)
-        return (a * b) / Decimal("100")
+        return (a / b) * Decimal("100")
     
 class Absolute(Operation):
     def execute(self, a: Decimal, b: Decimal) -> Decimal:
@@ -102,7 +102,7 @@ class OperationFactory:
 
     @classmethod
     def register_operation(cls, operation_name: str, operation: Operation) -> None:
-        if not issubclass(type(operation), Operation):
+        if not isinstance(operation, Operation):
             raise TypeError("Operation must be a subclass of Operation.")
         cls.operations[operation_name.lower()] = operation
         
@@ -111,4 +111,4 @@ class OperationFactory:
         operation = cls.operations.get(operation_name.lower())
         if not operation:
             raise ValueError(f"Operation '{operation_name}' is not supported.")
-        return operation()
+        return operation
