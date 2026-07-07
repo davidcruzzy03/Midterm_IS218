@@ -1,3 +1,4 @@
+from colorama import Fore, Style, init
 from app.calculator import Calculator
 
 def get_numbers():
@@ -8,14 +9,14 @@ def get_numbers():
 def main():
     calculator = Calculator()
 
-    print("Welcome to the Command-Line Calculator!")
-    print("Type 'help' for commands.")
+    print(Fore.CYAN + "Welcome to the Command-Line Calculator!")
+    print(Fore.YELLOW + "Type 'help' for commands.")
 
     while True:
         command = input("Enter command: ").strip().lower()
 
         if command == "exit":
-            print("Exiting the calculator. Goodbye!")
+            print(Fore.MAGENTA + "Exiting the calculator. Goodbye!")
             break
 
         elif command == "help":
@@ -56,15 +57,15 @@ def main():
             try:
                 a, b = get_numbers()
                 result = calculator.calculate(command, str(a), str(b))
-                print(f"Result: {result}")
+                print(Fore.GREEN + f"Result: {result}")
             except Exception as e:
-                print(f"Error: {e}")
+                print(Fore.RED + f"Error: {e}")
 
         elif command == "history":
             if not calculator.history:
                 print("No history available.")
             else:
-                print("\nCalculation History:")
+                print(Fore.BLUE + "\nCalculation History:")
                 for index, calculation in enumerate(calculator.history, start=1):
                     operation_name = calculation.operation
 
@@ -78,26 +79,26 @@ def main():
 
         elif command == "clear":
             calculator.clear_history()
-            print("History cleared.")
+            print(Fore.YELLOW + "History cleared.")
 
         elif command == "undo":
             calculator.undo()
-            print("Undo completed.")
+            print(Fore.YELLOW + "Undo completed.")
 
         elif command == "redo":
             calculator.redo()
-            print("Redo completed.")
+            print(Fore.YELLOW + "Redo completed.")
 
         elif command == "save":
             calculator.save_history()
-            print("History saved.")
+            print(Fore.GREEN + "History saved.")
 
         elif command == "load":
             calculator.load_history()
-            print("History loaded.")
+            print(Fore.GREEN + "History loaded.")
 
         else:
-            print("Unknown command. Type 'help' for a list of commands.")     
+            print(Fore.RED + "Unknown command. Type 'help' for a list of commands.")     
 
 if __name__ == "__main__":
     main()
