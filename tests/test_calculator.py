@@ -3,6 +3,9 @@ from decimal import Decimal
 from app.calculator import Calculator
 from app.exceptions import OperationError, ValidationError
 
+from unittest.mock import Mock, patch
+from app.history import LoggingObserver
+
 @pytest.fixture
 def calculator(tmp_path):
     calc = Calculator()
@@ -129,3 +132,38 @@ def test_max_history_size(calculator):
     calculator.calculate("add", "2", "2")
     assert len(calculator.history) == 1
     assert calculator.history[0].result == Decimal("4")
+
+def test_add_observer_and_notify(calculator):
+    observer = LoggingObserver()
+    calculator.add_observer(observer)
+
+    with patch.object(observer, "update") as mock_update:
+        calculator.calculate("add", "2", "2")
+
+    mock_update.assert_called_once()
+
+def test_notify_multiple_observers(calculator):
+    observer_one = Mock()
+    observer_two = Mock()
+
+    calculator.add_observer(observer_one)
+    calculator.add_observer(observer_two)
+
+    calculator.calculate("add", "2", "2")
+
+    observer_one.update.assert_called_once()
+    observer_two.update.assert_called_once()
+
+def test_save_history_error(calculator):
+    calculator.calculate("add", "2", "2")
+
+    with patch("app.calculator.pd.DataFrame.to_csv", side_effect=Exception("save failed")):
+        with pytest.raises(OperationError):
+            calculator.save_history()
+
+def test_load_history_error(calculator):
+    history_file = calculator.config.history_dir / "calculator_history.csv"
+    history_file.write_text("operation,operand1,operand2,result,timestamp\nbad,bad,bad,bad,bad")
+
+    with pytest.raises(OperationError):
+        calculator.load_history()
