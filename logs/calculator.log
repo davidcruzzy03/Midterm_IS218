@@ -1,0 +1,5 @@
+2026-07-07 00:46:57,580  ERROR  Error during calculation: Operation 'int_divide' is not supported.
+2026-07-07 00:47:09,910  ERROR  Error during calculation: Operation 'percent' is not supported.
+2026-07-07 00:48:10,005  ERROR  Error during calculation: Operation 'percent' is not supported.
+2026-07-07 00:49:18,461  INFO  History saved successfully.
+2026-07-07 00:49:35,845  INFO  History saved successfully.

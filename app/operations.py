@@ -95,9 +95,9 @@ class OperationFactory:
         "power": Power(),
         "root": Root(),
         "modulus": Modulus(),
-        "integer_division": IntegerDivision(),
-        "percentage": Percentage(),
-        "absolute": Absolute()
+        "int_divide": IntegerDivision(),
+        "percent": Percentage(),
+        "abs_diff": Absolute()
     }
 
     @classmethod
