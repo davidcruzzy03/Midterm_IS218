@@ -66,7 +66,11 @@ def main():
             else:
                 print("\nCalculation History:")
                 for index, calculation in enumerate(calculator.history, start=1):
-                    operation_name = calculation.operation.__class__.__name__
+                    operation_name = calculation.operation
+
+                    if not isinstance(operation_name, str):
+                        operation_name = calculation.operation.__class__.__name__
+
                     print(
                         f"{index}. {operation_name}: "
                         f"{calculation.operand1} and {calculation.operand2} = {calculation.result}"
@@ -77,11 +81,11 @@ def main():
             print("History cleared.")
 
         elif command == "undo":
-            calculator.undo_last_operation()
+            calculator.undo()
             print("Undo completed.")
 
         elif command == "redo":
-            calculator.redo_last_operation()
+            calculator.redo()
             print("Redo completed.")
 
         elif command == "save":
