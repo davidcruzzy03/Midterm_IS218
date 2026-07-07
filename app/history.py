@@ -6,8 +6,7 @@ from app.calculation import Calculation
 class HistoryObserver(ABC):
     @abstractmethod
     def update(self, calculation: Calculation) -> None:
-        pass
-
+        pass  # pragma: no cover
 class LoggingObserver(HistoryObserver):
     def update(self, calculation: Calculation) -> None:
         logging.info(

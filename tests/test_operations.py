@@ -91,3 +91,16 @@ def test_percentage_by_zero():
 
     with pytest.raises(ValidationError):
         operation.execute(Decimal("10"), Decimal("0")) 
+
+def test_operation_abstract_execute():
+    with pytest.raises(TypeError):
+        Operation()
+
+def test_register_valid_operation():
+    class CustomOperation(Operation):
+        def execute(self, a, b):
+            return Decimal("100")
+    operation = CustomOperation()
+    OperationFactory.register_operation("custom", operation)
+    assert OperationFactory.get_operation("custom") is operation
+    assert OperationFactory.get_operation("custom").execute(Decimal("1"), Decimal("2")) == Decimal("100")

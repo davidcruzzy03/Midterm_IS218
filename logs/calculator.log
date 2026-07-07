@@ -67,3 +67,23 @@
 2026-07-07 16:26:21,494  INFO  History saved successfully.
 2026-07-07 16:26:21,502  INFO  History saved successfully.
 2026-07-07 16:26:21,510  INFO  History loaded successfully.
+2026-07-07 16:47:01,910  ERROR  Error during calculation: Operation 'invalid_operation' is not supported.
+2026-07-07 16:47:01,995  INFO  History saved successfully.
+2026-07-07 16:47:02,004  INFO  History saved successfully.
+2026-07-07 16:47:02,010  INFO  History loaded successfully.
+2026-07-07 16:47:22,293  ERROR  Error during calculation: Operation 'invalid_operation' is not supported.
+2026-07-07 16:47:22,391  INFO  History saved successfully.
+2026-07-07 16:47:22,403  INFO  History saved successfully.
+2026-07-07 16:47:22,407  INFO  History loaded successfully.
+2026-07-07 16:49:14,452  ERROR  Error during calculation: Operation 'invalid_operation' is not supported.
+2026-07-07 16:49:14,542  INFO  History saved successfully.
+2026-07-07 16:49:14,552  INFO  History saved successfully.
+2026-07-07 16:49:14,560  INFO  History loaded successfully.
+2026-07-07 16:52:25,398  ERROR  Error during calculation: Operation 'invalid_operation' is not supported.
+2026-07-07 16:52:25,476  INFO  History saved successfully.
+2026-07-07 16:52:25,487  INFO  History saved successfully.
+2026-07-07 16:52:25,493  INFO  History loaded successfully.
+2026-07-07 16:59:45,740  ERROR  Error during calculation: Operation 'invalid_operation' is not supported.
+2026-07-07 16:59:45,835  INFO  History saved successfully.
+2026-07-07 16:59:45,844  INFO  History saved successfully.
+2026-07-07 16:59:45,850  INFO  History loaded successfully.
