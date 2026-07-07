@@ -5,3 +5,4 @@
 2026-07-07 00:49:35,845  INFO  History saved successfully.
 2026-07-07 01:03:25,634  INFO  History saved successfully.
 2026-07-07 01:03:33,740  INFO  History loaded successfully.
+2026-07-07 01:19:20,864  ERROR  Error during calculation: Operation 'invalid_operation' is not supported.
